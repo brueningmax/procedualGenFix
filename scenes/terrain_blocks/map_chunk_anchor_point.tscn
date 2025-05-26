@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://mh64i3lrey8"]
+
+[ext_resource type="Script" uid="uid://bllpyqnu1g8r5" path="res://scripts/terrain/map_chunk_anchor_point.gd" id="1_3fwno"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3fwno"]
+
+[node name="MapChunkAnchorPoint" type="Marker3D"]
+script = ExtResource("1_3fwno")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 1)
+mesh = SubResource("SphereMesh_3fwno")
