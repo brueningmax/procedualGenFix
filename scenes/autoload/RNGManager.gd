@@ -7,7 +7,7 @@ func _ready():
 	# Optionally auto-seed with a time-based seed:
 	var randint = randi()
 	print(randint)
-	seed_random(1318924097)
+	seed_random(randint)
 
 func seed_random(seed: int):
 	rng.seed = seed

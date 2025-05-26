@@ -18,8 +18,10 @@ func create_map() -> void:
 	chunks.add_child(new_chunk)
 	map_chunks.append(new_chunk)
 	#
-	for i in range(100):
+	for i in range(50):
 		await create_new_chunk()
+		#await get_tree().create_timer(0.5).timeout
+		await get_tree().physics_frame
 
 func create_new_chunk() -> void:
 	if map_chunk_templates.is_empty() or map_chunks.is_empty():
@@ -82,30 +84,28 @@ func align_chunk_to_anchor(new_chunk: Node3D, new_anchor: MapChunkAnchorPoint, o
 	new_chunk.global_transform.origin += offset_to_target_position
 
 func check_is_colliding(new_chunk: Node3D) -> bool:	
-	var box_shape := BoxShape3D.new()
 	var aabb: AABB = new_chunk.get_global_bounds()
-	var area = Area3D.new()
 	var shape = BoxShape3D.new()
 	shape.size = aabb.size
-	var collision_shape = CollisionShape3D.new()
-	collision_shape.shape = shape
-	area.add_child(collision_shape)
 	
-	area.monitoring = true
-	area.monitorable = true
+	var shape_cast = ShapeCast3D.new()
+	shape_cast.enabled = true
+	shape_cast.collide_with_bodies = true
+	shape_cast.max_results = 1
+	shape_cast.shape = shape
+	shape_cast.debug_shape_custom_color = Color.RED
+	shape_cast.rotation = new_chunk.rotation
+	shape_cast.target_position = Vector3(0, 0, 0)
 	
-	#area.global_transform = new_chunk.global_transform
-	area.rotation = new_chunk.rotation
-	area.global_position = new_chunk.global_position
-	get_tree().current_scene.add_child(area)
+	new_chunk.add_child(shape_cast)
 	
-	await get_tree().physics_frame
-	await get_tree().process_frame
+	#shape_cast.force_update_transform()
+	shape_cast.force_shapecast_update()
 	
-	await get_tree().create_timer(0.5).timeout
-	var intersections = await area.get_overlapping_bodies()
-	area.queue_free()
-	return intersections.is_empty() == false
+	var is_colliding = shape_cast.is_colliding()
+
+	#shape_cast.queue_free()
+	return is_colliding
 			
 func visualize_aabb(bounds: AABB):
 	var debug_box := MeshInstance3D.new()
@@ -126,13 +126,6 @@ func visualize_aabb(bounds: AABB):
 	await get_tree().create_timer(2.0).timeout
 	if debug_box.is_inside_tree():
 		debug_box.queue_free()
-
-#func check_is_colliding(new_chunk: Node3D) -> bool:
-	#await get_tree().process_frame
-	#await get_tree().physics_frame
-	#await get_tree().create_timer(0.5).timeout
-	#var collisions = new_chunk.get_foreign_collisions()
-	#return collisions.is_empty() == false
 
 func visualize_query(query: PhysicsShapeQueryParameters3D, size: Vector3):
 	var debug_box = MeshInstance3D.new()
