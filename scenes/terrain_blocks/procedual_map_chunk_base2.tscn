@@ -20,16 +20,16 @@ script = ExtResource("1_xy2rm")
 [node name="Anchors" type="Node3D" parent="."]
 
 [node name="MapChunkAnchorPoint" parent="Anchors" instance=ExtResource("2_074vu")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.5, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.53206, 0, 0)
 
 [node name="MapChunkAnchorPoint2" parent="Anchors" instance=ExtResource("2_074vu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.59499)
 
 [node name="MapChunkAnchorPoint3" parent="Anchors" instance=ExtResource("2_074vu")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.5, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.63702, 0, 0)
 
 [node name="MapChunkAnchorPoint4" parent="Anchors" instance=ExtResource("2_074vu")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.6, 0, -1.5)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.6, 0, -1.64825)
 
 [node name="Mesh" type="Node3D" parent="."]
 

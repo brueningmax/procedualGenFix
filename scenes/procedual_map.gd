@@ -94,17 +94,17 @@ func check_is_colliding(new_chunk: Node3D) -> bool:
 	area.monitoring = true
 	area.monitorable = true
 	
-	area.global_transform = new_chunk.global_transform
+	#area.global_transform = new_chunk.global_transform
+	area.rotation = new_chunk.rotation
+	area.global_position = new_chunk.global_position
 	get_tree().current_scene.add_child(area)
 	
 	await get_tree().physics_frame
-	await get_tree().physics_frame
-	await get_tree().physics_frame
 	await get_tree().process_frame
 	
-	var intersections = area.get_overlapping_bodies()
-	area.queue_free()
 	await get_tree().create_timer(0.5).timeout
+	var intersections = await area.get_overlapping_bodies()
+	area.queue_free()
 	return intersections.is_empty() == false
 			
 func visualize_aabb(bounds: AABB):
